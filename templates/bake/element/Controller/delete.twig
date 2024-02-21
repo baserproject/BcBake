@@ -16,19 +16,24 @@
     /**
      * Delete method
      *
+     * @param \{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service
      * @param string|null $id {{ singularHumanName }} id.
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, $id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        ${{ singularName }} = $this->{{ currentModelName }}->get($id);
-        if ($this->{{ currentModelName }}->delete(${{ singularName }})) {
-            $this->Flash->success(__('The {{ singularHumanName|lower }} has been deleted.'));
-        } else {
-            $this->Flash->error(__('The {{ singularHumanName|lower }} could not be deleted. Please, try again.'));
+        $this->getRequest()->allowMethod(['post', 'delete']);
+        try {
+            $entity = $service->get($id);
+            if ($service->delete($id)) {
+                $this->BcMessage->setSuccess(__d('baser_core',
+                    'エントリー「{0}」を削除しました。',
+                    $entity->name
+                ));
+            }
+        } catch (\Throwable $e) {
+            $this->BcMessage->setError(__d('baser_core', 'データベース処理中にエラーが発生しました。') . $e->getMessage());
         }
-
         return $this->redirect(['action' => 'index']);
     }

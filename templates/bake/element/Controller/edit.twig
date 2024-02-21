@@ -19,30 +19,44 @@
     /**
      * Edit method
      *
+     * @param \{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service
      * @param string|null $id {{ singularHumanName }} id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, $id = null)
     {
-        ${{ singularName }} = $this->{{ currentModelName }}->get($id, [
+        $entity = $service->get($id, [
             'contain' => {{ Bake.exportArray(belongsToMany)|raw }},
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            ${{ singularName }} = $this->{{ currentModelName }}->patchEntity(${{ singularName }}, $this->request->getData());
-            if ($this->{{ currentModelName }}->save(${{ singularName }})) {
-                $this->Flash->success(__('The {{ singularHumanName|lower }} has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            // EVENT {{ currentModelName }}.beforeEdit
+            $event = $this->dispatchLayerEvent('beforeEdit', [
+                'data' => $this->getRequest()->getData()
+            ]);
+            if ($event !== false) {
+                $data = ($event->getResult() === null || $event->getResult() === true) ? $event->getData('data') : $event->getResult();
+                $this->setRequest($this->getRequest()->withParsedBody($data));
             }
-            $this->Flash->error(__('The {{ singularHumanName|lower }} could not be saved. Please, try again.'));
+
+            try {
+                $entity = $service->update($entity, $this->request->getData());
+
+                // EVENT {{ currentModelName }}.afterEdit
+                $this->dispatchLayerEvent('afterEdit', [
+                    'data' => $entity
+                ]);
+
+                $this->BcMessage->setSuccess(__d('baser_core', "{{ currentModelName }}「{0}」を更新しました。", $entity->name));
+                return $this->redirect(['action' => 'edit', $id]);
+            } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
+                $entity = $e->getEntity();
+                $this->BcMessage->setError(__d('baser_core', '入力エラーです。内容を修正してください。'));
+            } catch (\Throwable $e) {
+                $this->BcMessage->setError(__d('baser_core', 'データベース処理中にエラーが発生しました。' . $e->getMessage()));
+            }
         }
-{% for assoc in belongsTo|merge(belongsToMany) %}
-    {%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
-    {%- set otherPlural = otherName|variable %}
-        ${{ otherPlural }} = $this->{{ currentModelName }}->{{ otherName }}->find('list', ['limit' => 200])->all();
-        {{- "\n" }}
-    {%- set compact = compact|merge(["'#{otherPlural}'"]) %}
-{% endfor %}
-        $this->set(compact({{ compact|join(', ')|raw }}));
+
+        $this->set($service->getViewVarsForEdit($entity));
     }

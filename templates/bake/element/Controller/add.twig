@@ -22,8 +22,7 @@
      */
     public function add(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service)
     {
-        if ($this->request->is('post')) {
-
+        if ($this->request->is('patch', 'post', 'put')) {
             // EVENT {{ currentModelName }}.beforeEdit
             $event = $this->dispatchLayerEvent('beforeEdit', [
                 'data' => $this->getRequest()->getData()
@@ -41,7 +40,7 @@
                     'data' => $entity
                 ]);
 
-                $this->BcMessage->setSuccess(__d('baser_core', "{{ currentModelName }}「{0}」を更新しました。", $entity->content->title));
+                $this->BcMessage->setSuccess(__d('baser_core', "{{ currentModelName }}「{0}」を更新しました。", $entity->name));
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
                 $entity = $e->getEntity();

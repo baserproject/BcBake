@@ -44,10 +44,11 @@ class {{ name }}Service
 
     /**
      * get
-     * @param $id
+     * @param int $id
+     * @param array $options
      * @return \Cake\Datasource\EntityInterface
      */
-    public function get($id): \Cake\Datasource\EntityInterface
+    public function get(int $id, array $options): \Cake\Datasource\EntityInterface
     {
         return $this->{{ name }}->get($id, [
             'contain' => [],

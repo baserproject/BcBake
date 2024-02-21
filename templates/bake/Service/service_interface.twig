@@ -30,9 +30,10 @@ interface {{ name }}ServiceInterface
     /**
      * get
      * @param int $id
+     * @param array $options
      * @return \Cake\Datasource\EntityInterface
      */
-    public function get(int $id): \Cake\Datasource\EntityInterface;
+    public function get(int $id, array $options): \Cake\Datasource\EntityInterface;
 
     /**
      * get list
