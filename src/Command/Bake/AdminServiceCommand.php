@@ -12,6 +12,8 @@
 namespace BcBake\Command\Bake;
 
 use Bake\Command\SimpleBakeCommand;
+use Cake\Console\Arguments;
+use Cake\Console\ConsoleIo;
 
 /**
  * AdminServiceCommand
@@ -52,6 +54,36 @@ class AdminServiceCommand extends SimpleBakeCommand
     public function fileName(string $name): string
     {
         return $name . 'AdminService.php';
+    }
+
+    /**
+     * bake
+     *
+     * interface も生成する
+     * @param string $name
+     * @param Arguments $args
+     * @param ConsoleIo $io
+     * @return void
+     */
+    public function bake(string $name, Arguments $args, ConsoleIo $io): void
+    {
+        parent::bake($name, $args, $io);
+        $this->bakeInterface($args, $io);
+    }
+
+    /**
+     * interface 生成
+     * @param Arguments $args
+     * @param ConsoleIo $io
+     * @return void
+     */
+    public function bakeInterface(Arguments $args, ConsoleIo $io): void
+    {
+        if ($args->getOption('no-interface')) {
+            return;
+        }
+        $serviceInterface = new AdminServiceInterfaceCommand();
+        $serviceInterface->execute($args, $io);
     }
 
 }
