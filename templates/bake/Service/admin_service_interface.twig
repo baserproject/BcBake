@@ -46,6 +46,6 @@ interface {{ name }}AdminServiceInterface extends \BaserCore\Service\{{ name }}S
      * get view vars for view
      * @return array
      */
-    public function getViewVarsForView(\Cake\Datasource\ ${{ singularName }}): array;
+    public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularName }}): array;
 
-}}
+}
