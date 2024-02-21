@@ -31,4 +31,88 @@ class {{ name }}Service
         $this->{{ name }} = TableRegistry::getTableLocator()->get('{{ namespace }}.{{ name }}');
     }
 
+    /**
+     * get new
+     * @return \Cake\Datasource\EntityInterface
+     */
+    public function getNew(): \Cake\Datasource\EntityInterface
+    {
+        return $this->{{ name }}->newEntity([], [
+			'validate' => false,
+		]);
+    }
+
+    /**
+     * get
+     * @param $id
+     * @return \Cake\Datasource\EntityInterface
+     */
+    public function get($id): \Cake\Datasource\EntityInterface
+    {
+        return $this->{{ name }}->get($id);
+    }
+
+    /**
+     * get list
+     * @param array $queryParams
+     * @return array
+     */
+    public function getList(array $queryParams = []): array
+    {
+        return $this->createConditions($this->{{ name }}->find('list'), $queryParams)->toArray();
+    }
+
+    /**
+     * get index
+     * @return \Cake\Datasource\QueryInterface
+     */
+    public function getIndex(array $queryParams = []): \Cake\Datasource\QueryInterface
+    {
+        return $this->createConditions($this->{{ name }}->find(), $queryParams);
+    }
+
+    /**
+     * create conditions
+     * @param \Cake\Datasource\QueryInterface $query
+     * @return \Cake\Datasource\QueryInterface
+     */
+    public function createConditions(\Cake\Datasource\QueryInterface $query, array $queryParams = [])
+    {
+        return $query;
+    }
+
+    /**
+     * create
+     * @param array $postData
+     * @return \Cake\Datasource\EntityInterface|null
+     */
+    public function create(array $postData): ?\Cake\Datasource\EntityInterface
+    {
+        $entity = $this->{{ name }}->newEntity($postData);
+        return $this->{{ name }}->saveOrFail($entity);
+    }
+
+    /**
+     * edit
+     * @param \Cake\Datasource\EntityInterface $target
+     * @param array $postData
+     * @return \Cake\Datasource\EntityInterface|null
+     */
+    public function update(\Cake\Datasource\EntityInterface $target, array $postData): ?\Cake\Datasource\EntityInterface
+    {
+        $user = $this->{{ name }}->patchEntity($target, $postData);
+        return $this->{{ name }}->saveOrFail($user);
+    }
+
+    /**
+     * delete
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $user = $this->get($id);
+        return $this->{{ name }}->delete($user);
+    }
+
 }
