@@ -1,0 +1,54 @@
+{#
+/**
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
+ *
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @since         5.0.7
+ * @license       https://basercms.net/license/index.html MIT License
+ */
+#}
+{{ element('Bake.file_header', {
+    namespace: "#{namespace}\\Controller#{prefix}",
+    classImports: (plugin or prefix) ? ["#{baseNamespace}\\Controller\\AppController"] : [],
+}) }}
+
+/**
+ * {{ name }} Controller
+ *
+{% if defaultModel %}
+ * @property \{{ defaultModel }} ${{ name }}
+{% endif %}
+
+{%- for component in components %}
+{% set classInfo = Bake.classInfo(component, 'Controller/Component', 'Component') %}
+ * @property {{ classInfo.fqn }} ${{ classInfo.name }}
+{% endfor %}
+ */
+class {{ name }}Controller extends AppController
+{
+{% if components or helpers %}
+    /**
+     * Initialize controller
+     *
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+
+{% for component in components %}
+        $this->loadComponent('{{ component }}');
+{% endfor %}
+{% if helpers %}
+        $this->viewBuilder()->setHelpers({{ Bake.exportArray(helpers)|raw }});
+{% endif %}
+    }
+{% if actions|length %}{{ "\n" }}{% endif %}
+{% endif %}
+{%- for action in actions %}
+{% if loop.index > 1 %}{{ "\n" }}{% endif %}
+    {{- element('Bake.Controller/' ~ action) -}}
+{% endfor %}
+}
