@@ -18,7 +18,34 @@
 /**
  * {{ name }} Admin Service Interface
  */
-interface {{ name }}AdminServiceInterface
+interface {{ name }}AdminServiceInterface extends \BaserCore\Service\{{ name }}ServiceInterface
 {
 
-}
+    /**
+     * get view vars for index
+     * @param \Cake\Datasource\Paging\PaginatedInterface ${{ pluralName }}
+     * @return array
+     */
+    public function getViewVarsForIndex(\Cake\Datasource\Paging\PaginatedInterface ${{ pluralName }}): array;
+
+    /**
+     * get view vars for add
+     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @return array
+     */
+    public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularName }}): array;
+
+    /**
+     * get view vars for edit
+     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @return array
+     */
+    public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularName }}): array;
+
+    /**
+     * get view vars for view
+     * @return array
+     */
+    public function getViewVarsForView(\Cake\Datasource\ ${{ singularName }}): array;
+
+}}

@@ -21,4 +21,52 @@
 class {{ name }}AdminService
 {
 
+    /**
+     * get view vars for index
+     * @param \Cake\Datasource\Paging\PaginatedInterface ${{ pluralName }}
+     * @return array
+     */
+    public function getViewVarsForIndex(\Cake\Datasource\Paging\PaginatedInterface ${{ pluralName }}): array
+    {
+      return [
+          '{{ pluralName }}' => ${{ pluralName }}
+      ];
+    }
+
+    /**
+     * get view vars for add
+     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @return array
+     */
+    public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularName }}): array
+    {
+      return [
+          '{{ singularName }}' => ${{ singularName }}
+      ];
+    }
+
+    /**
+     * get view vars for edit
+     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @return array
+     */
+    public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularName }}): array
+    {
+      return [
+          '{{ singularName }}' => ${{ singularName }}
+      ];
+    }
+
+    /**
+     * get view vars for edit
+     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @return array
+     */
+    public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularName }}): array
+    {
+      return [
+          '{{ singularName }}' => ${{ singularName }}
+      ];
+    }
+
 }

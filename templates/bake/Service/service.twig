@@ -49,7 +49,9 @@ class {{ name }}Service
      */
     public function get($id): \Cake\Datasource\EntityInterface
     {
-        return $this->{{ name }}->get($id);
+        return $this->{{ name }}->get($id, [
+            'contain' => [],
+        ]);
     }
 
     /**

@@ -14,6 +14,8 @@ namespace BcBake\Command\Bake;
 use Bake\Command\SimpleBakeCommand;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 /**
  * AdminServiceCommand
@@ -25,7 +27,7 @@ class AdminServiceCommand extends SimpleBakeCommand
      * path fragment
      * @var string
      */
-    public $pathFragment = 'Service/Admin/';
+    public string $pathFragment = 'Service/Admin/';
 
     /**
      * name
@@ -69,6 +71,25 @@ class AdminServiceCommand extends SimpleBakeCommand
     {
         parent::bake($name, $args, $io);
         $this->bakeInterface($args, $io);
+    }
+
+    /**
+     * templateData
+     * @param Arguments $arguments
+     * @return array
+     */
+    public function templateData(Arguments $arguments): array
+    {
+        $namespace = Configure::read('App.namespace');
+        if ($this->plugin) {
+            $namespace = $this->_pluginNamespace($this->plugin);
+        }
+        $name = $arguments->getArgument('name');
+        return [
+            'namespace' => $namespace,
+            'singularName' => Inflector::singularize($name),
+            'pluralName' => $name
+        ];
     }
 
     /**

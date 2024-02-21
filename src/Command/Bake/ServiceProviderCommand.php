@@ -24,14 +24,14 @@ use Cake\Utility\Inflector;
 /**
  * ServiceCommand
  */
-class ServiceCommand extends SimpleBakeCommand
+class ServiceProviderCommand extends SimpleBakeCommand
 {
 
     /**
      * path fragment
      * @var string
      */
-    public string $pathFragment = 'Service/';
+    public string $pathFragment = 'ServiceProvider/';
 
     /**
      * name
@@ -39,7 +39,7 @@ class ServiceCommand extends SimpleBakeCommand
      */
     public function name(): string
     {
-        return 'service';
+        return 'service_provider';
     }
 
     /**
@@ -49,7 +49,7 @@ class ServiceCommand extends SimpleBakeCommand
      */
     public function template(): string
     {
-        return 'Service/service';
+        return 'ServiceProvider/service_provider';
     }
 
     /**
@@ -59,37 +59,7 @@ class ServiceCommand extends SimpleBakeCommand
      */
     public function fileName(string $name): string
     {
-        return $name . 'Service.php';
-    }
-
-    /**
-     * bake
-     *
-     * interface も生成する
-     * @param string $name
-     * @param Arguments $args
-     * @param ConsoleIo $io
-     * @return void
-     */
-    public function bake(string $name, Arguments $args, ConsoleIo $io): void
-    {
-        parent::bake($name, $args, $io);
-        $this->bakeInterface($args, $io);
-    }
-
-    /**
-     * interface 生成
-     * @param Arguments $args
-     * @param ConsoleIo $io
-     * @return void
-     */
-    public function bakeInterface(Arguments $args, ConsoleIo $io): void
-    {
-        if ($args->getOption('no-interface')) {
-            return;
-        }
-        $serviceInterface = new ServiceInterfaceCommand();
-        $serviceInterface->execute($args, $io);
+        return $name . 'ServiceProvider.php';
     }
 
 }
