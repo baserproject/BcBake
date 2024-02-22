@@ -20,7 +20,7 @@ use Cake\ORM\TableRegistry;
 /**
  * {{ name }} Service
  */
-class {{ name }}Service
+class {{ name }}Service implements {{ name }}ServiceInterface
 {
 
     /**
@@ -48,7 +48,7 @@ class {{ name }}Service
      * @param array $options
      * @return \Cake\Datasource\EntityInterface
      */
-    public function get(int $id, array $options): \Cake\Datasource\EntityInterface
+    public function get(int $id, array $options = []): \Cake\Datasource\EntityInterface
     {
         return $this->{{ name }}->get($id, [
             'contain' => [],

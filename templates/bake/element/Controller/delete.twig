@@ -25,8 +25,8 @@
     {
         $this->getRequest()->allowMethod(['post', 'delete']);
         try {
-            $entity = $service->get($id);
-            if ($service->delete($id)) {
+            $entity = $service->get((int) $id);
+            if ($service->delete((int) $id)) {
                 $this->BcMessage->setSuccess(__d('baser_core',
                     'エントリー「{0}」を削除しました。',
                     $entity->name

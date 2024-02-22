@@ -27,5 +27,5 @@
      */
     public function view(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, int $id = null)
     {
-        $this->set($service->getViewVarsForView($service->get($id)));
+        $this->set($service->getViewVarsForView($service->get((int) $id)));
     }

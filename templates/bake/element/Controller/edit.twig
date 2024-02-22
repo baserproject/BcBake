@@ -26,7 +26,7 @@
      */
     public function edit(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, $id = null)
     {
-        $entity = $service->get($id, [
+        $entity = $service->get((int) $id, [
             'contain' => {{ Bake.exportArray(belongsToMany)|raw }},
         ]);
 

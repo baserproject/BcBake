@@ -35,7 +35,7 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
     </div>
   </div>
 
-  <table class="¥bca-table-listup">
+  <table class="bca-table-listup">
     <thead class="bca-table-listup__thead">
     <tr>
 {% set fields = Bake.filterFields(fields, schema, modelObject, indexColumns, ['binary', 'text']) %}
@@ -43,8 +43,8 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
 {% for field in fields %}
       <th class="bca-table-listup__thead-th">
         <?= $this->Paginator->sort('{{ field }}', [
-          'asc' => '<i class="bca-icon--asc"></i>' . __d('baser_core', 'No'),
-          'desc' => '<i class="bca-icon--desc"></i>' . __d('baser_core', '{{ field }}')
+          'asc' => '<i class="bca-icon--asc"></i>' . __d('baser_core', '{{ field|humanize }}'),
+          'desc' => '<i class="bca-icon--desc"></i>' . __d('baser_core', '{{ field|humanize }}')
           ], ['escape' => false, 'class' => 'btn-direction bca-table-listup__a']
         ) ?>
       </th>
@@ -80,28 +80,27 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
 {% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
         <td class="bca-table-listup__tbody-td bca-table-listup__tbody-td--actions" style="width:15%">
           <?php if (!empty(${{ singularVar }}->status)) : ?>
-            <?= $this->BcAdminForm->postLink('', ['action' => 'unpublish', ${{ singularVar }}->id], [
+            <!--<?= $this->BcAdminForm->postLink('', ['action' => 'unpublish', ${{ singularVar }}->id], [
               'title' => __d('baser_core', '非公開'),
               'class' => 'btn-unpublish bca-btn-icon',
               'data-bca-btn-type' => 'unpublish',
               'data-bca-btn-size' => 'lg'
-            ]) ?>
-            <?php $this->BcBaser->link('', ['prefix' => '', 'action' => 'view'], [
+            ]) ?>-->
+            <?= $this->BcHtml->link('', ['action' => 'view', ${{ singularVar }}->id], [
               'title' => __d('baser_core', '確認'),
-              'target' => '_blank',
               'class' => 'bca-btn-icon',
               'data-bca-btn-type' => 'preview',
               'data-bca-btn-size' => 'lg'
             ]) ?>
           <?php else: ?>
-            <?= $this->BcAdminForm->postLink('', ['action' => 'publish', ${{ singularVar }}->id], [
+            <!--<?= $this->BcAdminForm->postLink('', ['action' => 'publish', ${{ singularVar }}->id], [
               'title' => __d('baser_core', '公開'),
               'class' => 'btn-publish bca-btn-icon',
               'data-bca-btn-type' => 'publish',
               'data-bca-btn-size' => 'lg'
-            ]) ?>
+            ]) ?>-->
           <?php endif ?>
-          <?php $this->BcBaser->link('', ['action' => 'edit', ${{ singularVar }}->id], [
+          <?= $this->BcHtml->link('', ['action' => 'edit', ${{ singularVar }}->id], [
               'title' => __d('baser_core', '編集'),
               'class' => ' bca-btn-icon',
               'data-bca-btn-type' => 'edit',

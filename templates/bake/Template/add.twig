@@ -30,7 +30,7 @@
     {%- endfor %}
 {% endif %}
  */
-$this->BcAdmin->setTitle(__d('baser_core', '{{ singularVar }} 編集'));
+$this->BcAdmin->setTitle(__d('baser_core', '{{ singularVar|humanize }} 新規登録'));
 //$this->BcAdmin->setHelp('{{ pluralVar }}_form');
 ?>
 
@@ -51,9 +51,9 @@ $this->BcAdmin->setTitle(__d('baser_core', '{{ singularVar }} 編集'));
     ]) ?>
   </div>
   <div class="bca-actions__main">
-    <?= $this->BcAdminForm->button(__d('baser_core', '保存'), [
+    <?= $this->BcAdminForm->submit(__d('baser_core', '保存'), [
       'div' => false,
-      'class' => 'bca-btn bca-actions__item',
+      'class' => 'bca-btn bca-actions__item bca-loading',
       'data-bca-btn-type' => 'save',
       'data-bca-btn-size' => 'lg',
       'data-bca-btn-width' => 'lg',

@@ -22,7 +22,7 @@
      */
     public function add(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service)
     {
-        if ($this->request->is('patch', 'post', 'put')) {
+        if ($this->request->is('post', 'patch', 'put')) {
             // EVENT {{ currentModelName }}.beforeEdit
             $event = $this->dispatchLayerEvent('beforeEdit', [
                 'data' => $this->getRequest()->getData()
@@ -40,7 +40,7 @@
                     'data' => $entity
                 ]);
 
-                $this->BcMessage->setSuccess(__d('baser_core', "{{ currentModelName }}「{0}」を更新しました。", $entity->name));
+                $this->BcMessage->setSuccess(__d('baser_core', "{{ currentModelName }}「{0}」を登録しました。", $entity->name));
                 return $this->redirect(['action' => 'edit', $entity->id]);
             } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
                 $entity = $e->getEntity();
@@ -49,5 +49,5 @@
                 $this->BcMessage->setError(__d('baser_core', 'データベース処理中にエラーが発生しました。' . $e->getMessage()));
             }
         }
-        $this->set($service->getViewVarsForAdd($entity));
+        $this->set($service->getViewVarsForAdd($entity ?? $service->getNew()));
     }

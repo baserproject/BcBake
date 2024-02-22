@@ -22,6 +22,7 @@
     </th>
     <td class="bca-form-table__input">
       <?= $this->BcAdminForm->control('{{ field }}', ['options' => ${{ keyFields[field] }}, 'empty' => true]) ?>
+      <?= $this->BcAdminForm->error('{{ field }}') ?>
     </td>
   </tr>{{- "\n" }}
 {%- else %}
@@ -30,7 +31,8 @@
       <?= $this->BcAdminForm->label('{{ field }}', __d('baser_core', '{{ field|humanize }}')) ?>
     </th>
     <td class="bca-form-table__input">
-      <?= $this->BcAdminForm->control('{{ field }}', ['options' => ${{ keyFields[field] }}]) ?>{{- "\n" }}
+      <?= $this->BcAdminForm->control('{{ field }}', ['options' => ${{ keyFields[field] }}]) ?>
+      <?= $this->BcAdminForm->error('{{ field }}') ?>
     </td>
   </tr>{{- "\n" }}
 {%- endif %}
@@ -43,6 +45,7 @@
     </th>
     <td class="bca-form-table__input">
       <?= $this->BcAdminForm->control('{{ field }}', ['empty' => true]) ?>
+      <?= $this->BcAdminForm->error('{{ field }}') ?>
     </td>
   </tr>{{- "\n" }}
 {%- else %}
@@ -52,6 +55,7 @@
     </th>
     <td class="bca-form-table__input">
       <?= $this->BcAdminForm->control('{{ field }}') ?>
+      <?= $this->BcAdminForm->error('{{ field }}') ?>
     </td>
   </tr>{{- "\n" }}
 {%- endif %}

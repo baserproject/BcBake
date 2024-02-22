@@ -30,7 +30,7 @@
     {%- endfor %}
 {% endif %}
  */
-$this->BcAdmin->setTitle(__d('baser_core', '{{ singularVar }} 新規登録'));
+$this->BcAdmin->setTitle(__d('baser_core', '{{ singularVar|humanize }} 編集'));
 $this->BcAdmin->addAdminMainBodyHeaderLinks([
   'url' => ['action' => 'add'],
   'title' => __d('baser_core', '新規登録'),
@@ -55,9 +55,9 @@ $this->BcAdmin->addAdminMainBodyHeaderLinks([
     ]) ?>
   </div>
   <div class="bca-actions__main">
-    <?= $this->BcAdminForm->button(__d('baser_core', '保存'), [
+    <?= $this->BcAdminForm->submit(__d('baser_core', '保存'), [
       'div' => false,
-      'class' => 'bca-btn bca-actions__item',
+      'class' => 'bca-btn bca-actions__item bca-loading',
       'data-bca-btn-type' => 'save',
       'data-bca-btn-size' => 'lg',
       'data-bca-btn-width' => 'lg',
