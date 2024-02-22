@@ -1,21 +1,20 @@
 {#
 /**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
  *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         2.0.0
- * @license       https://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @since         5.0.7
+ * @license       https://basercms.net/license/index.html MIT License
  */
 #}
-<?php
+{{ element('Bake.file_header', {
+    namespace: ''
+}) }}
+
 /**
- * @var \{{ namespace }}\View\AppView $this
+ * @var \BaserCore\View\BcAdminAppView $this
  * @var \{{ entityClass }} ${{ singularVar }}
         {{- "\n" }}
 {%- if associations.BelongsTo is defined %}
@@ -31,5 +30,53 @@
     {%- endfor %}
 {% endif %}
  */
+$this->BcAdmin->setTitle(__d('baser_core', '{{ singularVar }} 新規登録'));
+$this->BcAdmin->addAdminMainBodyHeaderLinks([
+  'url' => ['action' => 'add'],
+  'title' => __d('baser_core', '新規登録'),
+]);
+//$this->BcAdmin->setHelp('{{ pluralVar }}_form');
 ?>
+
+
+<?= $this->BcAdminForm->create(${{ singularVar }}, ['novalidate' => true]) ?>
+
+<?= $this->BcFormTable->dispatchBefore() ?>
+
 {{ element('Bake.form') }}
+
+<?= $this->BcFormTable->dispatchAfter() ?>
+
+<div class="submit bca-actions">
+  <div class="bca-actions__before">
+    <?= $this->BcHtml->link(__d('baser_core', '一覧に戻る'), ['action' => 'index'], [
+      'class' => 'bca-btn bca-actions__item',
+      'data-bca-btn-type' => 'back-to-list'
+    ]) ?>
+  </div>
+  <div class="bca-actions__main">
+    <?= $this->BcAdminForm->button(__d('baser_core', '保存'), [
+      'div' => false,
+      'class' => 'bca-btn bca-actions__item',
+      'data-bca-btn-type' => 'save',
+      'data-bca-btn-size' => 'lg',
+      'data-bca-btn-width' => 'lg',
+      'id' => 'BtnSave'
+    ]) ?>
+  </div>
+  <div class="bca-actions__sub">
+    <?= $this->BcAdminForm->postLink( __d('baser_core', '削除'), ['action' => 'delete', ${{ singularVar }}->id], [
+      'block' => true,
+      'confirm' => __d('baser_core', '{0} を本当に削除してもいいですか？', ${{ singularVar }}->name),
+      'class' => 'bca-btn bca-actions__item',
+      'data-bca-btn-type' => 'delete',
+      'data-bca-btn-size' => 'sm',
+      'data-bca-btn-color' => "danger"
+      ]
+    ) ?>
+  </div>
+</div>
+
+<?= $this->BcAdminForm->end() ?>
+
+<?= $this->fetch('postLink') ?>

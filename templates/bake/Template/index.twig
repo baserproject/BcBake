@@ -20,9 +20,11 @@
 $this->BcAdmin->setTitle(__d('baser_core', '{{ pluralHumanName }} 一覧'));
 $this->BcAdmin->addAdminMainBodyHeaderLinks([
   'url' => ['action' => 'add'],
-  'title' => __d('baser_core', '新規追加'),
+  'title' => __d('baser_core', '新規登録'),
 ]);
 $this->BcListTable->setColumnNumber({{ indexColumns }});
+//$this->BcAdmin->setHelp('{{ pluralVar }}_form');
+//$this->BcAdmin->setSearch('{{ pluralVar }}_index');
 ?>
 
 
@@ -40,20 +42,20 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
 {% set done = [] %}
 {% for field in fields %}
       <th class="bca-table-listup__thead-th">
-        <?php echo $this->Paginator->sort('{{ field }}', [
+        <?= $this->Paginator->sort('{{ field }}', [
           'asc' => '<i class="bca-icon--asc"></i>' . __d('baser_core', 'No'),
           'desc' => '<i class="bca-icon--desc"></i>' . __d('baser_core', '{{ field }}')
           ], ['escape' => false, 'class' => 'btn-direction bca-table-listup__a']
         ) ?>
       </th>
 {% endfor %}
-      <th class="bca-table-listup__thead-th"><?php echo __d('baser_core', 'アクション') ?></th>
+      <th class="bca-table-listup__thead-th"><?= __d('baser_core', 'アクション') ?></th>
     </tr>
     </thead>
     <tbody class="bca-table-listup__tbody">
 <?php if (!${{ pluralVar }}->isEmpty()): ?>
   <?php foreach(${{ pluralVar }} as $key => ${{ singularVar }}): ?>
-      <tr id="Row<?php echo $key ?>">
+      <tr id="Row<?= $key ?>">
 {% for field in fields %}
 {% set isKey = false %}
 {% if associations.BelongsTo is defined %}
@@ -78,7 +80,7 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
 {% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
         <td class="bca-table-listup__tbody-td bca-table-listup__tbody-td--actions" style="width:15%">
           <?php if (!empty(${{ singularVar }}->status)) : ?>
-            <?php echo $this->BcAdminForm->postLink('', ['action' => 'unpublish', ${{ singularVar }}->id], [
+            <?= $this->BcAdminForm->postLink('', ['action' => 'unpublish', ${{ singularVar }}->id], [
               'title' => __d('baser_core', '非公開'),
               'class' => 'btn-unpublish bca-btn-icon',
               'data-bca-btn-type' => 'unpublish',
@@ -92,7 +94,7 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
               'data-bca-btn-size' => 'lg'
             ]) ?>
           <?php else: ?>
-            <?php echo $this->BcAdminForm->postLink('', ['action' => 'publish', ${{ singularVar }}->id], [
+            <?= $this->BcAdminForm->postLink('', ['action' => 'publish', ${{ singularVar }}->id], [
               'title' => __d('baser_core', '公開'),
               'class' => 'btn-publish bca-btn-icon',
               'data-bca-btn-type' => 'publish',
@@ -110,8 +112,8 @@ $this->BcListTable->setColumnNumber({{ indexColumns }});
   <?php endforeach; ?>
 <?php else: ?>
       <tr>
-        <td colspan="<?php echo $this->BcListTable->getColumnNumber() ?>" class="bca-table-listup__tbody-td">
-          <p class="no-data"><?php echo __d('baser_core', 'データがありません。') ?></p>
+        <td colspan="<?= $this->BcListTable->getColumnNumber() ?>" class="bca-table-listup__tbody-td">
+          <p class="no-data"><?= __d('baser_core', 'データがありません。') ?></p>
         </td>
       </tr>
 <?php endif ?>
