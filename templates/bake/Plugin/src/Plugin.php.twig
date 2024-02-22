@@ -1,23 +1,19 @@
 {#
 /**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
  *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         1.7.0
- * @license       https://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @since         5.0.7
+ * @license       https://basercms.net/license/index.html MIT License
  */
 #}
 {{ element('Bake.file_header', {
     namespace: "#{namespace}",
     classImports: [
         'Cake\\Console\\CommandCollection',
-        'Cake\\Core\\BasePlugin',
+        'BaserCore\\BcPlugin',
         'Cake\\Core\\ContainerInterface',
         'Cake\\Core\\PluginApplicationInterface',
         'Cake\\Http\\MiddlewareQueue',
@@ -28,7 +24,7 @@
 /**
  * Plugin for {{ namespace }}
  */
-class {{ name }}Plugin extends BasePlugin
+class {{ name }}Plugin extends BcPlugin
 {
     /**
      * Load all the plugin configuration and bootstrap logic.
@@ -103,6 +99,7 @@ class {{ name }}Plugin extends BasePlugin
      */
     public function services(ContainerInterface $container): void
     {
+
         // Add your services here
     }
 }
