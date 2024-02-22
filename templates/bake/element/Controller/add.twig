@@ -17,10 +17,10 @@
     /**
      * Add method
      *
-     * @param \{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service
+     * @param \{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service)
+    public function add(\{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service)
     {
         if ($this->request->is('post', 'patch', 'put')) {
             // EVENT {{ currentModelName }}.beforeEdit

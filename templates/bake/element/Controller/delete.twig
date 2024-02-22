@@ -16,12 +16,12 @@
     /**
      * Delete method
      *
-     * @param \{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service
+     * @param \{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service
      * @param string|null $id {{ singularHumanName }} id.
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, $id = null)
+    public function delete(\{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service, $id = null)
     {
         $this->getRequest()->allowMethod(['post', 'delete']);
         try {

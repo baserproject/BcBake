@@ -18,7 +18,7 @@
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service)
+    public function index(\{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service)
     {
 		$this->set($service->getViewVarsForIndex(
 			$this->paginate($service->getIndex())

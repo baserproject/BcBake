@@ -19,12 +19,12 @@
     /**
      * Edit method
      *
-     * @param \{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service
+     * @param \{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service
      * @param string|null $id {{ singularHumanName }} id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, $id = null)
+    public function edit(\{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service, $id = null)
     {
         $entity = $service->get((int) $id, [
             'contain' => {{ Bake.exportArray(belongsToMany)|raw }},

@@ -20,12 +20,12 @@
     /**
      * View method
      *
-     * @param \{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service
+     * @param \{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service
      * @param string|null $id {{ singularHumanName }} id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(\{{ namespace }}\Service\Admin\UsersAdminServiceInterface $service, int $id = null)
+    public function view(\{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service, int $id = null)
     {
         $this->set($service->getViewVarsForView($service->get((int) $id)));
     }
