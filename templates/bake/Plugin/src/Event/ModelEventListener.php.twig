@@ -10,33 +10,34 @@
  */
 #}
 {{ element('Bake.file_header', {
-    namespace: "#{namespace}\\ServiceProvider",
+    namespace: "#{namespace}\\Event",
     classImports: [
-        'Cake\\Core\\ServiceProvider',
+        'BaserCore\\Event\\BcModelEventListener',
+        'Cake\\Event\\Event'
     ],
 }) }}
 
 /**
- * {{ name }} Service Provider
+ * {{ name }} Model Event Listener
  */
-class {{ name }}ServiceProvider extends ServiceProvider
+class {{ name }}ModelEventListener extends BcModelEventListener
 {
 
     /**
-     * Provides
+     * events
      * @var string[]
      */
-    protected array $provides = [
+    public $events = [
+        //'Users.beforeFind',
     ];
 
     /**
-     * Services
-     * @param \Cake\Core\ContainerInterface $container
+     * users before find
+     * @param Event $event
      */
-    public function services($container): void
+    /*public function usersBeforeFind(Event $event): void
     {
-        $container->defaultToShared(true);
-        // $container->add(ServiceInterface::class, Service::class);
-    }
+        // Add your logic here
+    }*/
 
 }

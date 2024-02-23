@@ -10,33 +10,34 @@
  */
 #}
 {{ element('Bake.file_header', {
-    namespace: "#{namespace}\\ServiceProvider",
+    namespace: "#{namespace}\\Event",
     classImports: [
-        'Cake\\Core\\ServiceProvider',
+        'BaserCore\\Event\\BcViewEventListener',
+        'Cake\\Event\\Event'
     ],
 }) }}
 
 /**
- * {{ name }} Service Provider
+ * {{ name }} View Event Listener
  */
-class {{ name }}ServiceProvider extends ServiceProvider
+class {{ name }}ViewEventListener extends BcViewEventListener
 {
 
     /**
-     * Provides
+     * events
      * @var string[]
      */
-    protected array $provides = [
+    public $events = [
+        //'Users.beforeRender',
     ];
 
     /**
-     * Services
-     * @param \Cake\Core\ContainerInterface $container
+     * users before render
+     * @param Event $event
      */
-    public function services($container): void
+    /*public function usersBeforeRender(Event $event): void
     {
-        $container->defaultToShared(true);
-        // $container->add(ServiceInterface::class, Service::class);
-    }
+        // Add your logic here
+    }*/
 
 }

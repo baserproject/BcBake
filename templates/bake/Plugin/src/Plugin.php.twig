@@ -18,6 +18,7 @@
         'Cake\\Core\\PluginApplicationInterface',
         'Cake\\Http\\MiddlewareQueue',
         'Cake\\Routing\\RouteBuilder',
+        "#{namespace}\\ServiceProvider\\#{namespace}ServiceProvider",
     ],
 }) }}
 
@@ -99,7 +100,8 @@ class {{ name }}Plugin extends BcPlugin
      */
     public function services(ContainerInterface $container): void
     {
+        // Register your services here
 
-        // Add your services here
+        $container->addServiceProvider(new {{ name }}ServiceProvider());
     }
 }

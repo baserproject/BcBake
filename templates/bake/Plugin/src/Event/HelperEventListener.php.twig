@@ -10,33 +10,34 @@
  */
 #}
 {{ element('Bake.file_header', {
-    namespace: "#{namespace}\\ServiceProvider",
+    namespace: "#{namespace}\\Event",
     classImports: [
-        'Cake\\Core\\ServiceProvider',
+        'BaserCore\\Event\\BcHelperEventListener',
+        'Cake\\Event\\Event'
     ],
 }) }}
 
 /**
- * {{ name }} Service Provider
+ * {{ name }} Helper Event Listener
  */
-class {{ name }}ServiceProvider extends ServiceProvider
+class {{ name }}HelperEventListener extends BcHelperEventListener
 {
 
     /**
-     * Provides
+     * events
      * @var string[]
      */
-    protected array $provides = [
+    public $events = [
+        //'Form.beforeCreate',
     ];
 
     /**
-     * Services
-     * @param \Cake\Core\ContainerInterface $container
+     * form before create
+     * @param Event $event
      */
-    public function services($container): void
+    /*public function formBeforeCreate(Event $event): void
     {
-        $container->defaultToShared(true);
-        // $container->add(ServiceInterface::class, Service::class);
-    }
+        // Add your logic here
+    }*/
 
 }

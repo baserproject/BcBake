@@ -10,33 +10,34 @@
  */
 #}
 {{ element('Bake.file_header', {
-    namespace: "#{namespace}\\ServiceProvider",
+    namespace: "#{namespace}\\Event",
     classImports: [
-        'Cake\\Core\\ServiceProvider',
+        'BaserCore\\Event\\BcControllerEventListener',
+        'Cake\\Event\\Event'
     ],
 }) }}
 
 /**
- * {{ name }} Service Provider
+ * {{ name }} Controller Event Listener
  */
-class {{ name }}ServiceProvider extends ServiceProvider
+class {{ name }}ControllerEventListener extends BcControllerEventListener
 {
 
     /**
-     * Provides
+     * events
      * @var string[]
      */
-    protected array $provides = [
+    public $events = [
+        //'Users.startup',
     ];
 
     /**
      * Services
-     * @param \Cake\Core\ContainerInterface $container
+     * @param Event $event
      */
-    public function services($container): void
+    /*public function usersStartup(Event $event): void
     {
-        $container->defaultToShared(true);
-        // $container->add(ServiceInterface::class, Service::class);
-    }
+        // Add your logic here
+    }*/
 
 }

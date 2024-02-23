@@ -86,6 +86,9 @@ class BcPluginCommand extends PluginCommand
             if ($filename === 'src/ServiceProvider/ServiceProvider.php') {
                 $filename = 'src/ServiceProvider/' . $name . 'ServiceProvider.php';
             }
+            if (strpos($filename, 'src/Event/') === 0) {
+                $filename = 'src/Event/' . $name . substr($filename, 10);
+            }
             // <<<
             $this->_generateFile($renderer, $template, $root, $filename, $io);
         }
