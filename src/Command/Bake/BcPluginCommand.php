@@ -18,7 +18,6 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\Utility\Filesystem;
 use Cake\Utility\Inflector;
 
 /**
@@ -61,15 +60,17 @@ class BcPluginCommand extends PluginCommand
 
         $name = $pluginName;
         $vendor = 'your-name-here';
-        if (str_contains($pluginName, '/')) {
+        if (strpos($pluginName, '/') !== false) {
             [$vendor, $name] = explode('/', $pluginName);
         }
         $package = Inflector::dasherize($vendor) . '/' . Inflector::dasherize($name);
 
+        /** @psalm-suppress UndefinedConstant */
         $composerConfig = json_decode(
             file_get_contents(ROOT . DS . 'composer.json'),
             true
         );
+
         $renderer = $this->createTemplateRenderer()
             ->set([
                 'name' => $name,
@@ -93,7 +94,7 @@ class BcPluginCommand extends PluginCommand
         $paths = array_merge($paths, Configure::read('App.paths.templates'));
         $paths[] = Plugin::templatePath('Bake');
 
-        $fs = new Filesystem();
+        $fs = new \Cake\Filesystem\Filesystem();
         $templates = [];
         do {
             $templatesPath = array_shift($paths) . BakeView::BAKE_TEMPLATE_FOLDER . '/Plugin';
