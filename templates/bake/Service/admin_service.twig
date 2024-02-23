@@ -28,9 +28,9 @@ class {{ name }}AdminService extends \{{ namespace }}\Service\{{ name }}Service 
      */
     public function getViewVarsForIndex(\Cake\Datasource\Paging\PaginatedInterface ${{ pluralName }}): array
     {
-      return [
-          '{{ pluralName }}' => ${{ pluralName }}
-      ];
+        return [
+            '{{ pluralName }}' => ${{ pluralName }}
+        ];
     }
 
     /**
@@ -40,9 +40,9 @@ class {{ name }}AdminService extends \{{ namespace }}\Service\{{ name }}Service 
      */
     public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularName }}): array
     {
-      return [
-          '{{ singularName }}' => ${{ singularName }}
-      ];
+        return [
+            '{{ singularName }}' => ${{ singularName }}
+        ];
     }
 
     /**
@@ -52,9 +52,9 @@ class {{ name }}AdminService extends \{{ namespace }}\Service\{{ name }}Service 
      */
     public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularName }}): array
     {
-      return [
-          '{{ singularName }}' => ${{ singularName }}
-      ];
+        return [
+            '{{ singularName }}' => ${{ singularName }}
+        ];
     }
 
     /**
@@ -64,9 +64,9 @@ class {{ name }}AdminService extends \{{ namespace }}\Service\{{ name }}Service 
      */
     public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularName }}): array
     {
-      return [
-          '{{ singularName }}' => ${{ singularName }}
-      ];
+        return [
+            '{{ singularName }}' => ${{ singularName }}
+        ];
     }
 
 }

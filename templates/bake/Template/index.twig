@@ -22,7 +22,7 @@ $this->BcAdmin->addAdminMainBodyHeaderLinks([
   'url' => ['action' => 'add'],
   'title' => __d('baser_core', '新規登録'),
 ]);
-$this->BcListTable->setColumnNumber({{ indexColumns }});
+$this->BcListTable->setColumnNumber({{ fields|length }});
 //$this->BcAdmin->setHelp('{{ pluralVar }}_form');
 //$this->BcAdmin->setSearch('{{ pluralVar }}_index');
 ?>

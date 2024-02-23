@@ -1,4 +1,14 @@
 <?php
+declare(strict_types=1);
+/**
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
+ *
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @since         5.0.7
+ * @license       https://basercms.net/license/index.html MIT License
+ */
 
 namespace BcBake\Command\Bake;
 
@@ -11,14 +21,35 @@ use Cake\Core\Plugin;
 use Cake\Utility\Filesystem;
 use Cake\Utility\Inflector;
 
+/**
+ * Baser Plugin Command
+ */
 class BcPluginCommand extends PluginCommand
 {
+
+    /**
+     * Execute the command.
+     * @param Arguments $args
+     * @param ConsoleIo $io
+     * @return int|null
+     */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
+        // CUSTOMIZE ADD 2024/02/23 ryuring
+        // >>>
         $this->theme = $args->getOption('theme');
+        // <<<
         return parent::execute($args, $io);
     }
 
+    /**
+     * Generate Files
+     * @param string $pluginName
+     * @param string $path
+     * @param Arguments $args
+     * @param ConsoleIo $io
+     * @return void
+     */
     protected function _generateFiles(
         string $pluginName,
         string $path,
@@ -88,6 +119,9 @@ class BcPluginCommand extends PluginCommand
             }
             if (strpos($filename, 'src/Event/') === 0) {
                 $filename = 'src/Event/' . $name . substr($filename, 10);
+            }
+            if ($filename === 'src/View/Helper/BaserHelper.php') {
+                $filename = 'src/View/Helper/' . $name . 'BaserHelper.php';
             }
             // <<<
             $this->_generateFile($renderer, $template, $root, $filename, $io);
