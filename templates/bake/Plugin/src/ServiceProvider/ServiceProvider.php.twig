@@ -27,6 +27,7 @@ class {{ name }}ServiceProvider extends ServiceProvider
      * @var string[]
      */
     protected array $provides = [
+        //TableNameAdminServiceInterface::class,
     ];
 
     /**
@@ -36,7 +37,7 @@ class {{ name }}ServiceProvider extends ServiceProvider
     public function services($container): void
     {
         $container->defaultToShared(true);
-        // $container->add(ServiceInterface::class, Service::class);
+        //$container->add(TableNameAdminServiceInterface::class, TableNameAdminService::class);
     }
 
 }
