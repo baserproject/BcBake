@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BcBake\Command\Bake;
 
 use Bake\Command\PluginCommand;
-use Bake\Utility\Process;
 use Bake\View\BakeView;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
