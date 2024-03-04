@@ -13,9 +13,11 @@ declare(strict_types=1);
 namespace BcBake\Command\Bake;
 
 use Bake\Command\PluginCommand;
+use Bake\Utility\Process;
 use Bake\View\BakeView;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
+use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Utility\Filesystem;
@@ -40,6 +42,67 @@ class BcPluginCommand extends PluginCommand
         $this->theme = $args->getOption('theme');
         // <<<
         return parent::execute($args, $io);
+    }
+
+    /**
+     * Bake
+     * @param string $plugin
+     * @param Arguments $args
+     * @param ConsoleIo $io
+     * @return bool|null
+     */
+    public function bake(string $plugin, Arguments $args, ConsoleIo $io): ?bool
+    {
+        $pathOptions = App::path('plugins');
+        if (count($pathOptions) > 1) {
+            $this->findPath($pathOptions, $io);
+        }
+        $io->out(sprintf('<info>Plugin Name:</info> %s', $plugin));
+        $io->out(sprintf('<info>Plugin Directory:</info> %s', $this->path . $plugin));
+        $io->hr();
+
+        $looksGood = $io->askChoice('Look okay?', ['y', 'n', 'q'], 'y');
+
+        if (strtolower($looksGood) !== 'y') {
+            return null;
+        }
+
+        $this->_generateFiles($plugin, $this->path, $args, $io);
+
+        // 2024/03/04 DELETE ryuring
+        // アプリケーションへの書き込みを抑制
+        // Composer の実行を抑制
+        // >>>
+        /*
+        $this->_modifyApplication($plugin, $io);
+
+        $composer = $this->findComposer($args, $io);
+
+        try {
+            $cwd = getcwd();
+
+            // Windows makes running multiple commands at once hard.
+            chdir(dirname($this->_rootComposerFilePath()));
+            $command = 'php ' . escapeshellarg($composer) . ' dump-autoload';
+            $process = new Process($io);
+            $io->out($process->call($command));
+
+            chdir($cwd);
+        } catch (RuntimeException $e) {
+            $error = $e->getMessage();
+            $io->error(sprintf('Could not run `composer dump-autoload`: %s', $error));
+            $this->abort();
+        }
+        */
+        // <<<
+
+        $io->hr();
+        $io->out(sprintf('<success>Created:</success> %s in %s', $plugin, $this->path . $plugin), 2);
+
+        $emptyFile = $this->path . '.gitkeep';
+        $this->deleteEmptyFile($emptyFile, $io);
+
+        return true;
     }
 
     /**
