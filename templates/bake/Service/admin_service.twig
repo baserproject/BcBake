@@ -23,49 +23,49 @@ class {{ name }}AdminService extends \{{ namespace }}\Service\{{ name }}Service 
 
     /**
      * get view vars for index
-     * @param \Cake\Datasource\ResultSetInterface ${{ pluralName }}
+     * @param \Cake\Datasource\Paging\PaginatedInterface ${{ pluralVar }}
      * @return array
      */
-    public function getViewVarsForIndex(\Cake\Datasource\ResultSetInterface ${{ pluralName }}): array
+    public function getViewVarsForIndex(\Cake\Datasource\Paging\PaginatedInterface ${{ pluralVar }}): array
     {
         return [
-            '{{ pluralName }}' => ${{ pluralName }}
+            '{{ pluralVar }}' => ${{ pluralVar }}
         ];
     }
 
     /**
      * get view vars for add
-     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @param \Cake\Datasource\EntityInterface ${{ singularVar }}
      * @return array
      */
-    public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularName }}): array
+    public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularVar }}): array
     {
         return [
-            '{{ singularName }}' => ${{ singularName }}
+            '{{ singularVar }}' => ${{ singularVar }}
         ];
     }
 
     /**
      * get view vars for edit
-     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @param \Cake\Datasource\EntityInterface ${{ singularVar }}
      * @return array
      */
-    public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularName }}): array
+    public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularVar }}): array
     {
         return [
-            '{{ singularName }}' => ${{ singularName }}
+            '{{ singularVar }}' => ${{ singularVar }}
         ];
     }
 
     /**
      * get view vars for edit
-     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @param \Cake\Datasource\EntityInterface ${{ singularVar }}
      * @return array
      */
-    public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularName }}): array
+    public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularVar }}): array
     {
         return [
-            '{{ singularName }}' => ${{ singularName }}
+            '{{ singularVar }}' => ${{ singularVar }}
         ];
     }
 

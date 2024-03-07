@@ -23,29 +23,29 @@ interface {{ name }}AdminServiceInterface extends \{{ namespace }}\Service\{{ na
 
     /**
      * get view vars for index
-     * @param \Cake\Datasource\ResultSetInterface ${{ pluralName }}
+     * @param \Cake\Datasource\Paging\PaginatedInterface ${{ pluralVar }}
      * @return array
      */
-    public function getViewVarsForIndex(\Cake\Datasource\ResultSetInterface ${{ pluralName }}): array;
+    public function getViewVarsForIndex(\Cake\Datasource\Paging\PaginatedInterface ${{ pluralVar }}): array;
 
     /**
      * get view vars for add
-     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @param \Cake\Datasource\EntityInterface ${{ singularVar }}
      * @return array
      */
-    public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularName }}): array;
+    public function getViewVarsForAdd(\Cake\Datasource\EntityInterface ${{ singularVar }}): array;
 
     /**
      * get view vars for edit
-     * @param \Cake\Datasource\EntityInterface ${{ singularName }}
+     * @param \Cake\Datasource\EntityInterface ${{ singularVar }}
      * @return array
      */
-    public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularName }}): array;
+    public function getViewVarsForEdit(\Cake\Datasource\EntityInterface ${{ singularVar }}): array;
 
     /**
      * get view vars for view
      * @return array
      */
-    public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularName }}): array;
+    public function getViewVarsForView(\Cake\Datasource\EntityInterface ${{ singularVar }}): array;
 
 }
