@@ -23,8 +23,8 @@
     public function add(\{{ namespace }}\Service\Admin\{{ currentModelName }}AdminServiceInterface $service)
     {
         if ($this->request->is('post', 'patch', 'put')) {
-            // EVENT {{ currentModelName }}.beforeEdit
-            $event = $this->dispatchLayerEvent('beforeEdit', [
+            // EVENT {{ currentModelName }}.beforeAdd
+            $event = $this->dispatchLayerEvent('beforeAdd', [
                 'data' => $this->getRequest()->getData()
             ]);
             if ($event !== false) {
