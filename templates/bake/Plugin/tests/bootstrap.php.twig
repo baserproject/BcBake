@@ -41,13 +41,14 @@ require_once $root . '/vendor/autoload.php';
  * To customize constants and configuration remove this require
  * and define the data required by your plugin here.
  */
-require_once $root . '/vendor/cakephp/cakephp/tests/bootstrap.php';
-
 if (file_exists($root . '/config/bootstrap.php')) {
     require $root . '/config/bootstrap.php';
-
-    return;
 }
+
+\Cake\Datasource\ConnectionManager::drop('default');
+\Cake\Datasource\ConnectionManager::drop('test');
+\Cake\Core\Configure::load('install');
+\Cake\Datasource\ConnectionManager::setConfig(\Cake\Core\Configure::consume('Datasources'));
 
 /**
  * Load schema from a SQL dump file.
@@ -59,7 +60,4 @@ if (file_exists($root . '/config/bootstrap.php')) {
  * using migrations to provide schema for your plugin,
  * and using \Migrations\TestSuite\Migrator to load schema.
  */
-use Cake\TestSuite\Fixture\SchemaLoader;
-
-// Load a schema dump file.
-(new SchemaLoader())->loadSqlFiles('tests/schema.sql', 'test');
+// (new Migrator())->runMany([]);
