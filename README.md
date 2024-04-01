@@ -31,7 +31,7 @@ bin/cake bake bc_plugin {PluginName}
 MVCに関連するファイルを作成するためのコマンドは次の通りです。
 
 ```shell
-bin/cake bake bc_all {table_name} -p PluginName --prefix Admin
+bin/cake bake bc_all {table_name} -p {PluginName} --prefix Admin
 ```
 
 `bake bc_all` コマンドは、CakePHPが提供する `bake all` コマンドが生成するファイルに加えて次のファイルを生成します。

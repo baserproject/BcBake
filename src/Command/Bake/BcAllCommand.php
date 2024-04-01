@@ -28,7 +28,7 @@ class BcAllCommand extends AllCommand
      *
      * @var array<string>
      */
-    protected array $commands = [
+    protected $commands = [
         ModelCommand::class,
         ControllerCommand::class,
         TemplateCommand::class,

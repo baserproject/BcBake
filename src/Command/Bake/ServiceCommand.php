@@ -11,15 +11,9 @@
 
 namespace BcBake\Command\Bake;
 
-use Bake\CodeGen\FileBuilder;
 use Bake\Command\SimpleBakeCommand;
-use Bake\Command\TestCommand;
-use Bake\Utility\TableScanner;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
-use Cake\Utility\Inflector;
 
 /**
  * ServiceCommand
@@ -31,7 +25,7 @@ class ServiceCommand extends SimpleBakeCommand
      * path fragment
      * @var string
      */
-    public string $pathFragment = 'Service/';
+    public $pathFragment = 'Service/';
 
     /**
      * name
