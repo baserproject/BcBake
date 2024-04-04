@@ -23,10 +23,10 @@ class {{ name }}AdminService extends \{{ namespace }}\Service\{{ name }}Service 
 
     /**
      * get view vars for index
-     * @param \Cake\Datasource\Paging\PaginatedInterface ${{ pluralVar }}
+     * @param \Cake\Datasource\ResultSetInterface ${{ pluralVar }}
      * @return array
      */
-    public function getViewVarsForIndex(\Cake\Datasource\Paging\PaginatedInterface ${{ pluralVar }}): array
+    public function getViewVarsForIndex(\Cake\Datasource\ResultSetInterface ${{ pluralVar }}): array
     {
         return [
             '{{ pluralVar }}' => ${{ pluralVar }}
