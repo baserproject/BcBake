@@ -60,4 +60,4 @@ if (file_exists($root . '/config/bootstrap.php')) {
  * using migrations to provide schema for your plugin,
  * and using \Migrations\TestSuite\Migrator to load schema.
  */
-// (new Migrator())->runMany([]);
+(new \Migrations\TestSuite\Migrator())->run(['plugin' => '{{ plugin }}']);

@@ -173,11 +173,11 @@ class BcPluginCommand extends PluginCommand
             $template = substr($template, strrpos($template, 'Plugin' . DIRECTORY_SEPARATOR) + 7, -4);
             $template = rtrim($template, '.');
             $filename = $template;
-            if ($filename === 'src/Plugin.php') {
-                $filename = 'src/' . $name . 'Plugin.php';
-            }
             // CUSTOMIZE ADD 2024/02/02 ryuring
             // >>>
+//            if ($filename === 'src/Plugin.php') {
+//                $filename = 'src/' . $name . 'Plugin.php';
+//            }
             if ($filename === 'src/ServiceProvider/ServiceProvider.php') {
                 $filename = 'src/ServiceProvider/' . $name . 'ServiceProvider.php';
             }
