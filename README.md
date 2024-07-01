@@ -46,6 +46,12 @@ bin/cake bake bc_all {table_name} -p {PluginName} --prefix Admin
 ```php
 // src/ServiceProvider/PluginNameServiceProvider.php
 
+use PluginName\Service\Admin\TableNameAdminService;
+use PluginName\Service\Admin\TableNameAdminServiceInterface;
+
+class PluginNameServiceProvider extends ServiceProvider
+{
+
 // provides プロパティにインターフェイスを定義
 protected array $provides = [
     TableNameAdminServiceInterface::class,
