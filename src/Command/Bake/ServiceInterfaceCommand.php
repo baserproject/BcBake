@@ -23,7 +23,7 @@ class ServiceInterfaceCommand extends SimpleBakeCommand
      * path fragment
      * @var string
      */
-    public $pathFragment = 'Service/';
+    public string $pathFragment = 'Service/';
 
     /**
      * name
