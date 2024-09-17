@@ -20,6 +20,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
+use Cake\Utility\Filesystem;
 use Cake\Utility\Inflector;
 
 /**
@@ -157,7 +158,7 @@ class BcPluginCommand extends PluginCommand
         $paths = array_merge($paths, Configure::read('App.paths.templates'));
         $paths[] = Plugin::templatePath('Bake');
 
-        $fs = new \Cake\Filesystem\Filesystem();
+        $fs = new Filesystem();
         $templates = [];
         do {
             $templatesPath = array_shift($paths) . BakeView::BAKE_TEMPLATE_FOLDER . '/Plugin';
