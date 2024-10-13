@@ -52,9 +52,7 @@ class {{ name }}Service implements {{ name }}ServiceInterface
      */
     public function get(int $id, array $options = []): \Cake\Datasource\EntityInterface
     {
-        return $this->{{ name }}->get($id, [
-            'contain' => [],
-        ]);
+        return $this->{{ name }}->get($id, $options);
     }
 
     /**
