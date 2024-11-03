@@ -71,7 +71,7 @@ class {{ className }}Test extends TestCase
      *
      * @var array<string>
      */
-    protected $fixtures = {{ Bake.exportVar(fixtures|values, 1)|raw }};
+    protected array $fixtures = {{ Bake.exportVar(fixtures|values, 1)|raw }};
 {% if construction or methods %}
 
 {% endif %}
