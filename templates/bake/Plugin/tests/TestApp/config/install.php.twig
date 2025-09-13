@@ -1,0 +1,42 @@
+{#
+/**
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
+ *
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @license       https://basercms.net/license/index.html MIT License
+ */
+#}
+<?php
+// created by BcInstaller
+return [
+    'Datasources.default' => [
+        'className' => 'Cake\\Database\\Connection',
+        'driver' => 'Cake\\Database\\Driver\\Mysql',
+        'host' => env('DB_HOST', '127.0.0.1'),
+        'port' => '3306',
+        'username' => env('DB_USER', 'root'),
+        'password' => env('DB_PWD', 'root'),
+        'database' => 'basercms',
+        'prefix' => '',
+        'schema' => '',
+        'persistent' => '',
+        'encoding' => 'utf8mb4',
+        'log' => filter_var(env('SQL_LOG', false), FILTER_VALIDATE_BOOLEAN)
+    ],
+    'Datasources.test' => [
+        'className' => 'Cake\\Database\\Connection',
+        'driver' => 'Cake\\Database\\Driver\\Mysql',
+        'host' => env('DB_HOST', '127.0.0.1'),
+        'port' => '3306',
+        'username' => env('DB_USER', 'root'),
+        'password' => env('DB_PWD', 'root'),
+        'database' => 'test_basercms',
+        'prefix' => '',
+        'schema' => '',
+        'persistent' => '',
+        'encoding' => 'utf8mb4',
+        'log' => filter_var(env('SQL_LOG', false), FILTER_VALIDATE_BOOLEAN)
+    ]
+];

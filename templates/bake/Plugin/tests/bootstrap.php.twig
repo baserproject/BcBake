@@ -18,46 +18,59 @@
  * has been installed as a dependency of the plugin, or the plugin is itself
  * installed as a dependency of an application.
  */
-$findRoot = function ($root) {
-    do {
-        $lastRoot = $root;
-        $root = dirname($root);
-        if (is_dir($root . '/vendor/cakephp/cakephp')) {
-            return $root;
-        }
-    } while ($root !== $lastRoot);
+use BaserCore\Utility\BcApiUtil;
+use Migrations\TestSuite\Migrator;
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Core\Configure\Engine\PhpConfig;
+use Cake\Datasource\ConnectionManager;
+use Cake\Error\ErrorTrap;
+use Cake\Error\ExceptionTrap;
+use Cake\Log\Log;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Utility\Security;
 
-    throw new Exception('Cannot find the root of the application, unable to run tests');
-};
-$root = $findRoot(__FILE__);
-unset($findRoot);
+require __DIR__ . DS . 'TestApp' . DS . 'config' . DS . 'paths.php';
+require_once ROOT . '/vendor/autoload.php';
+require CORE_PATH . 'config' . DS . 'bootstrap.php';
+require CAKE . 'functions.php';
 
-chdir($root);
-
-require_once $root . '/vendor/autoload.php';
-
-/**
- * Define fallback values for required constants and configuration.
- * To customize constants and configuration remove this require
- * and define the data required by your plugin here.
- */
-if (file_exists($root . '/config/bootstrap.php')) {
-    require $root . '/config/bootstrap.php';
+if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
+    $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
+    $dotenv->parse()
+        ->putenv()
+        ->toEnv()
+        ->toServer();
 }
 
-\Cake\Datasource\ConnectionManager::drop('default');
-\Cake\Datasource\ConnectionManager::drop('test');
-\Cake\Core\Configure::load('install');
-\Cake\Datasource\ConnectionManager::setConfig(\Cake\Core\Configure::consume('Datasources'));
+Configure::config('default', new PhpConfig());
+Configure::load('app', 'default', false);
+Configure::load('app_local', 'default');
 
-/**
- * Load schema from a SQL dump file.
- *
- * If your plugin does not use database fixtures you can
- * safely delete this.
- *
- * If you want to support multiple databases, consider
- * using migrations to provide schema for your plugin,
- * and using \Migrations\TestSuite\Migrator to load schema.
- */
-(new \Migrations\TestSuite\Migrator())->run(['plugin' => '{{ plugin }}']);
+date_default_timezone_set(Configure::read('App.defaultTimezone'));
+mb_internal_encoding(Configure::read('App.encoding'));
+ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
+
+(new ErrorTrap(Configure::read('Error')))->register();
+(new ExceptionTrap(Configure::read('Error')))->register();
+
+Cache::setConfig(Configure::consume('Cache'));
+ConnectionManager::setConfig(Configure::consume('Datasources'));
+TransportFactory::setConfig(Configure::consume('EmailTransport'));
+Mailer::setConfig(Configure::consume('Email'));
+Log::setConfig(Configure::consume('Log'));
+Security::setSalt(Configure::consume('Security.salt'));
+
+ConnectionManager::drop('default');
+ConnectionManager::drop('test');
+Configure::load('install');
+ConnectionManager::setConfig(Configure::consume('Datasources'));
+
+if (!file_exists(CONFIG . 'jwt.pem')) {
+    BcApiUtil::createJwt();
+}
+
+(new Migrator())->runMany([
+    ['plugin' => '{{ plugin }}'],
+]);
