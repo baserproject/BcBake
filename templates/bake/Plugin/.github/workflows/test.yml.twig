@@ -1,0 +1,78 @@
+{#
+/**
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
+ *
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @since         5.0.7
+ * @license       https://basercms.net/license/index.html MIT License
+ */
+#}
+name: {{ plugin }} Plugin Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_basercms
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    strategy:
+      matrix:
+        php-version: [8.2]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP with extensions
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: pdo_mysql, mbstring, exif, xml, zip, intl, gd
+        ini-values: memory_limit=-1
+        coverage: none
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: |
+        composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+
+    - name: Setup test directories
+      run: |
+        chmod -R 777 tests/TestApp/tmp tests/TestApp/logs tests/TestApp/config tests/TestApp/webroot/files
+
+    - name: Wait for MySQL
+      run: |
+        while ! mysqladmin ping -h"127.0.0.1" -u"root" -p"root" --silent; do
+          sleep 1
+        done
+
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit --configuration phpunit.xml.dist

@@ -64,3 +64,9 @@ public function services($container): void
     $container->add(TableNameAdminServiceInterface::class, TableNameAdminService::class);
 }
 ```
+
+## ユニットテスト
+
+ユニットテストについては、次を参考にします。
+
+- [独自プラグインのユニットテスト](https://baserproject.github.io/5/plugin/unittest)
