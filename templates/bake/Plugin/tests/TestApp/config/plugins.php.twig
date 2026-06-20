@@ -11,6 +11,8 @@
 <?php
 
 return [
-    'BaserCore' => null,
-    '{{ plugin }}' => null,
+    // 値は配列で指定する（CakePHP 5.2 の PluginCollection::create は array 必須。null は TypeError）。
+    // 本プラグインはここには書かず tests/bootstrap.php の BcApp.testAppPluginsToLoad に列挙する
+    // （二重登録による「Plugin named ... is already loaded」例外を避けるため）。
+    'BaserCore' => [],
 ];

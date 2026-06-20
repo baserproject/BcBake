@@ -74,3 +74,12 @@ if (!file_exists(CONFIG . 'jwt.pem')) {
 (new Migrator())->runMany([
     ['plugin' => '{{ plugin }}'],
 ]);
+
+// BcTestCase::loadTestAppPlugins() が読み込み・bootstrap するプラグイン一覧。
+// plugins.php には BaserCore のみを記載し、本プラグイン（と依存プラグイン）はこちらに列挙する。
+// plugins.php と二重に登録すると、統合テストがリクエストごとに生成する app で
+// plugins.php が再読み込みされ「Plugin named `{{ plugin }}` is already loaded」例外になるため
+// （CakePHP 5.2 / baser-core 5.2+ の挙動）。依存するコアプラグインがあれば配列に追記する。
+Configure::write('BcApp.testAppPluginsToLoad', [
+    '{{ plugin }}',
+]);
