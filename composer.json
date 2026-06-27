@@ -1,0 +1,17 @@
+{
+    "name": "baserproject/bc-bake",
+    "description": "baserCMSの管理画面の scaffold を作成するプラグイン",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Baserproject\\BcBake\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "NPO baser foundation"
+        }
+    ],
+    "require": {}
+}
